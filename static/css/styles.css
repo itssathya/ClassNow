@@ -89,6 +89,14 @@ p {
   margin-bottom: 1rem;
 }
 
+textbutton {
+  background:none!important;
+  border:none; 
+  padding:0!important;
+  /*border is optional*/
+  /*border-bottom:1px solid #444;*/ 
+}
+
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;

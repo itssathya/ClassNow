@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request,redirect,url_for,flash,session,g
-from dbCode import loginVerify,addUser,studentPopulateClasses,ownerPopulateClasses,retrieveClassData,addClass,joinClassroom,allUsers
+from dbCode import loginVerify,addUser,studentPopulateClasses,ownerPopulateClasses,retrieveClassData,addClass,joinClassroom,allUsers,deleteUserDB,findClass
+from examDB import createTestDB,createAssignmentDB
 
 app = Flask(__name__)
 app.secret_key = 'somesecretkeythatonlyishouldknow'
@@ -75,14 +76,17 @@ def classStream():
         return redirect(url_for('login'))
     if request.method == 'POST':
         classid=request.form['goclass']
+        print(classid)
         if(session['user_role']=="3"):
             classes=retrieveClassData(classid)
+            classdata=findClass(classid)
             print("Student")
-            return render_template('studentClassStream.html',classes=classes)
-        elif(session['user_role']=="Owner"):
+            return render_template('studentClassStream.html',classes=classes,classdata=classdata)
+        elif(session['user_role']=="2"):
             classes=retrieveClassData(classid)
-            return render_template('ownerClassStream.html',classes=classes)
-        return render_template('classStream.html')
+            classdata=findClass(classid)
+            classes=retrieveClassData(classid)
+            return render_template('ownerClassStream.html',classes=classes,classdata=classdata)
 
 
 @app.route('/ownerClasses',methods=['GET','POST'])
@@ -122,13 +126,15 @@ def deleteUser():
     if request.method == 'GET':
         users=allUsers()
         return render_template('deleteUser.html',users=users)
-    """elif request.method == 'POST':
-        classid = request.form['classname']
-        joinClassroom(classid,session['user_id'])
-        return redirect(url_for('dashboard'))"""
+    elif request.method == 'POST':
+        userid = request.form['user']
+        deleteUserDB(userid)
+        return redirect(url_for('deleteUser'))
 
 @app.route('/upload/',methods = ['GET','POST'])
 def upload_file():
+    if not g.user:
+        return redirect(url_for('login'))
     if request.method =='POST':
         file = request.files['file']
         if file:
@@ -136,7 +142,33 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             return hello()
     return render_template('file_upload.html')
-    
+
+@app.route('/createAssignment',methods=['GET','POST'])
+def createTest():
+    if request.method == 'GET':
+        return render_template('createAssignment.html')
+    if request.method == 'POST':
+        testname = request.form['testname']
+        due = request.form['dateandtime']
+        testQuestions = request.form.getlist('questions[]')
+        questionOption1 = request.form.getlist('option1[]')
+        questionOption2 = request.form.getlist('option2[]')
+        questionOption3 = request.form.getlist('option3[]')
+        questionOption4 = request.form.getlist('option4[]')
+        ans = request.form.getlist('ans[]')
+        createAssignmentDB(session['user_id'],due,testname,testQuestions,questionOption1,questionOption2,questionOption3,questionOption4,ans)
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/testTrial',methods=['GET','POST'])
+def testTrial():
+    if request.method == 'GET':
+        return render_template('test.html')
+    elif request.method == 'POST':
+        datatrials=request.form.getlist('name[]')
+        print(datatrials)
+        return redirect(url_for('login'))
+        
 
 if __name__ == '__main__':
-   app.run(debug=True)
+   app.run(debug=True,host='192.168.0.77')

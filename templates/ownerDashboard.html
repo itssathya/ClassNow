@@ -13,7 +13,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">ClassNow</a>
+            <a class="navbar-brand" href="/dashboard">ClassNow</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
     <!-- Navbar-->
     <ul class="navbar-nav ml-auto ml-md-0">
@@ -46,8 +46,9 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/viewClass">View Classes</a>
+                            <a class="nav-link" href="/dashboard">View Classes</a>
                             <a class="nav-link" href="/newClass">Add Class</a>
+                            <a class="nav-link" href="/createAssignment">Create Assignment</a>
                         </nav>
                     </div>
                    
@@ -98,17 +99,17 @@
                         <li class="breadcrumb-item active">Welcome {{session['user_name']}}.</li>
                     </ol>
                    <div class="row">
-                       {% for class in classes %}
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-info text-white mb-4">
-                                <div class="card-body">{{ class[1] }}</div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
+                    {% for class in classes %}
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-info text-white mb-4">
+                            <div class="card-body">{{ class[1] }} | {{class[0]}}</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <form id="classform" action="/classStream" method="POST"><input type="hidden" name="goclass" value="{{class[0]}}"></name><button class="btn btn-light" input type="submit" value="submit">View Details</button></form>
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
-                        {% endfor %}
+                    </div>
+                    {% endfor %}
                         
                         <!--<div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">

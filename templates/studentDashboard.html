@@ -13,7 +13,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">ClassNow</a>
+            <a class="navbar-brand" href="/dashboard">ClassNow</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -43,7 +43,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="/dashboard">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -112,7 +112,7 @@
                                 <div class="card bg-info text-white mb-4">
                                     <div class="card-body">{{ class[1] }} | {{class[0]}}</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <form id="classform" action="/classStream" method="POST"><input type="hidden" name="goclass" value="{{class[0]}}"></name><a class="small text-white stretched-link" href="#" onclick="document.getElementById('classform').submit();">View Details</a></form>
+                                        <form id="classform" action="/classStream" method="POST"><input type="hidden" name="goclass" value="{{class[0]}}"></name><button class="btn btn-light" input type="submit" value="submit">View Details</button></form>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>

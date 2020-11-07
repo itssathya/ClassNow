@@ -1,2 +1,2 @@
 # ClassNow
-A web-application used for e-learning.
+An web-application used for e-learning.

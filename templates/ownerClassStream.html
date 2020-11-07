@@ -102,22 +102,17 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">{{classdata[1]}}</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tables</li>
+                            <li class="breadcrumb-item active">{{classdata[1]}}</li>
                         </ol>
                         <div class="card mb-4">
-                            <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
-                            </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                DataTable Example
+                                Materials/Assignments
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -128,8 +123,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for material in classes %}
                                             <tr>
-                                                <td>Tiger Nixon</td>
+                                                <td><a href = "{{material[2]}}">{{material[1]}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td><center><a href="/newClass"><button type="button">+</button></a></center></td>
                                             </tr>
                                         </tbody>
                                     </table>

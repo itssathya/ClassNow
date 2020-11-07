@@ -73,6 +73,19 @@ def retrieveClassData(classid):
     myresult=mycursor.fetchall()
     return myresult
 
+def findClass(classid):
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="sathya",
+      passwd="password",
+      database="classroomdb"
+    )
+    mycursor = mydb.cursor()
+    sql = "select * from classrooms where classid ="+classid+";"
+    mycursor.execute(sql)
+    myresult=mycursor.fetchall()
+    return myresult[0]
+
 def addMaterial(classid,mname,ownerid,url,m_type):
     mydb = mysql.connector.connect(
       host="localhost",
@@ -127,4 +140,17 @@ def allUsers():
   myresult=mycursor.fetchall()
   print(myresult)
   return myresult
+
+def deleteUserDB(userid):
+  mydb = mysql.connector.connect(
+      host="localhost",
+      user="sathya",
+      passwd="password",
+      database="classroomdb"
+    )
+  mycursor = mydb.cursor()
+  sql = "delete from userdata where userid="+userid+";"
+  mycursor.execute(sql)
+  mydb.commit()
+
 
