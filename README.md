@@ -1,2 +1,2 @@
-# techathon-product-development
-Techathon Product Development - Google Classroom Alternative
+# ClassNow
+A web-application used for e-learning.
